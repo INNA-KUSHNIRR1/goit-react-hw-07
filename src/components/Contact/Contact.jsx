@@ -1,16 +1,15 @@
-import { FaUserAlt } from 'react-icons/fa';
 import { ImPhone } from 'react-icons/im';
 import style from './Contact.module.css';
-import { deleteContact } from '../../redux/contactsSlice';
 import { useDispatch } from 'react-redux';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { FaRegCircleUser } from 'react-icons/fa6';
+import { deleteContact } from '../../redux/operations';
 
-const Contact = ({ data: { id, name, number } }) => {
+const Contact = ({ contact }) => {
   const dispatch = useDispatch();
   const onDelete = () => {
-    dispatch(deleteContact(id));
+    dispatch(deleteContact(contact.id));
   };
   return (
     <div className={style.card}>
@@ -19,13 +18,13 @@ const Contact = ({ data: { id, name, number } }) => {
           <span className={style.spanIconUser}>
             <FaRegCircleUser className={style.iconUser} size={30} />
           </span>
-          <span className={style.text}>{name}</span>
+          <span className={style.text}>{contact.name}</span>
         </h2>
-        <a href={`tel: +${number}`} className={style.linkPhone}>
+        <a href={`tel: +${contact.number}`} className={style.linkPhone}>
           <span className={style.spanIcon}>
             <ImPhone className={style.iconPhone} size={16} />
           </span>
-          <span className={style.text}>{number}</span>
+          <span className={style.text}>{contact.number}</span>
         </a>
       </div>
       <div className={style.boxBtn}>

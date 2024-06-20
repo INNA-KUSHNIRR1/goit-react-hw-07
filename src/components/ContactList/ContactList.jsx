@@ -15,7 +15,7 @@ const ContactList = () => {
         {foundContacts.map(contact => {
           return (
             <li key={contact.id} className={style.item}>
-              <Contact data={contact} />
+              <Contact contact={contact} />
             </li>
           );
         })}

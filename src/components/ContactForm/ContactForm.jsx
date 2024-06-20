@@ -3,11 +3,10 @@ import style from './ContactForm.module.css';
 import { useId } from 'react';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
-import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
 import MaskedInput from 'react-text-mask';
 import { BsBoxArrowUpLeft } from 'react-icons/bs';
+import { addContact } from '../../redux/operations';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -53,7 +52,11 @@ const ContactForm = ({ setIsFormVisible }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    const newContact = { id: nanoid(), ...values };
+    const newContact = {
+      name: values.name,
+      number: values.number,
+    };
+    console.log(newContact);
     dispatch(addContact(newContact));
     setIsFormVisible(true);
     actions.resetForm();
