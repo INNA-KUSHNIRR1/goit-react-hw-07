@@ -1,13 +1,13 @@
-import ContactList from './components/ContactList/ContactList';
-// import ContactForm from './components/ContactForm/ContactForm';
-import SearchBox from './components/SearchBox/SearchBox';
 import './App.css';
 import Logo from './components/Logo/Logo';
+import SearchBox from './components/SearchBox/SearchBox';
+import ContactList from './components/ContactList/ContactList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from './redux/operations';
-import Loader from './components/Loader/Loader';
+import { fetchContacts } from './redux/contactsOps';
 import { selectContacts, selectError, selectLoading } from './redux/selectors';
+import Loader from './components/Loader/Loader';
+import Error from './components/Error/Error';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,9 +22,8 @@ function App() {
     <>
       <Logo />
       <SearchBox />
-      {/* <ContactForm /> */}
       {loading && <Loader />}
-      {error && <p>{error}</p>}
+      {error && <Error />}
       {contacts.length > 0 && <ContactList />}
     </>
   );

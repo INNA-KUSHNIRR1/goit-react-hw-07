@@ -1,10 +1,10 @@
-import { ImPhone } from 'react-icons/im';
 import style from './Contact.module.css';
+import { ImPhone } from 'react-icons/im';
 import { useDispatch } from 'react-redux';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { FaRegCircleUser } from 'react-icons/fa6';
-import { deleteContact } from '../../redux/operations';
+import { deleteContact } from '../../redux/contactsOps';
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();

@@ -1,12 +1,12 @@
-import { Field, Form, Formik } from 'formik';
 import style from './ContactForm.module.css';
-import { useId } from 'react';
 import * as Yup from 'yup';
+import MaskedInput from 'react-text-mask';
+import { Field, Form, Formik } from 'formik';
+import { useId } from 'react';
 import { ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
-import MaskedInput from 'react-text-mask';
 import { BsBoxArrowUpLeft } from 'react-icons/bs';
-import { addContact } from '../../redux/operations';
+import { addContact } from '../../redux/contactsOps';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -56,8 +56,7 @@ const ContactForm = ({ setIsFormVisible }) => {
       name: values.name,
       number: values.number,
     };
-    console.log(newContact);
-    dispatch(addContact(newContact));
+      dispatch(addContact(newContact));
     setIsFormVisible(true);
     actions.resetForm();
   };

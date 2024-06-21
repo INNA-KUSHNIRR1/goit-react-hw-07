@@ -1,5 +1,6 @@
-import { MdOutlineContacts } from 'react-icons/md';
 import style from './Logo.module.css';
+import { MdOutlineContacts } from 'react-icons/md';
+
 const Logo = () => {
   return (
     <header className={style.header}>
