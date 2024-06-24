@@ -1,11 +1,29 @@
 .sectionForm {
-  padding: 0 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(46, 47, 66, 0.8),
+      rgba(46, 47, 66, 0.9)
+    ),
+    url('../../img/1678920504_bogatyr-club-p-fon-simvoli-foni-vkontakte-10.jpg');
+  background-size: 1440px;
+  background-position: center;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .form {
   background: rgba(50, 36, 59)
     linear-gradient(360deg, rgba(48, 52, 90, 0.5), rgba(65, 255, 245, 0.4));
-  position: relative;
+  position: absolute;
   margin: 20px auto;
   max-width: 380px;
   padding: 12px;
@@ -45,7 +63,6 @@
   font-size: 14px;
   text-align: right;
 }
-
 .field {
   background-color: #181818;
   color-scheme: light dark;
@@ -66,6 +83,7 @@
   background-color: #3b4f58;
   box-shadow: inset 2px 2px 4px rgb(10, 10, 10);
 }
+
 .btnUp {
   position: absolute;
   bottom: 3px;
@@ -84,4 +102,9 @@
 }
 .iconUp {
   fill: rgb(172, 177, 177);
+}
+.title {
+  font-size: 14px;
+  text-align: right;
+  color: rgb(172, 177, 177);
 }

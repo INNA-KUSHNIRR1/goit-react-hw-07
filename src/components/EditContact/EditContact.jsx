@@ -1,13 +1,11 @@
-import style from './ContactForm.module.css';
+import style from './EditContact.module.css';
 import * as Yup from 'yup';
 import MaskedInput from 'react-text-mask';
-import { Field, Form, Formik } from 'formik';
-// import { useId } from 'react';
-import { ErrorMessage } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 import { BsBoxArrowUpLeft } from 'react-icons/bs';
-import { addContact } from '../../redux/contactsOps';
-import { selectContacts } from '../../redux/contactsSlice';
+import { useId } from 'react';
+import { editContact } from '../../redux/contactsOps';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -47,31 +45,26 @@ const TextMaskCustom = ({ field, ...props }) => (
     className={style.field}
   />
 );
-const ContactForm = ({ setIsFormVisible }) => {
+const EditContactForm = ({ setIsEdit, contact }) => {
+  const nameFieldId = useId();
+  const numberFieldId = useId();
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
 
   const handleSubmit = (values, actions) => {
-    const duplicateContact = contacts.find(
-      contact =>
-        contact.name.toLowerCase() === values.name.toLowerCase() ||
-        contact.number === values.number,
-    );
-
-    if (duplicateContact) {
-      actions.setErrors({ name: 'This contact already exists' });
-    } else {
-      const newContact = {
-        name: values.name,
-        number: values.number,
-      };
-      dispatch(addContact(newContact));
-      setIsFormVisible(true);
-      actions.resetForm();
-    }
+    const updateContact = {
+      name: values.name,
+      number: values.number,
+    };
+    console.log(updateContact);
+    dispatch(editContact({ contactId: contact.id, updateContact }))
+      .unwrap()
+      .then(() => {
+        setIsEdit(false);
+        actions.resetForm();
+      });
   };
   const handleCloseForm = actions => {
-    setIsFormVisible(true);
+    setIsEdit(false);
     actions.resetForm();
   };
   const handleClick = event => {
@@ -82,34 +75,40 @@ const ContactForm = ({ setIsFormVisible }) => {
       }, 0);
     }
   };
+
   return (
     <section className={style.sectionForm}>
       <Formik
-        initialValues={{ name: '', number: '' }}
+        initialValues={{ name: contact.name, number: contact.number }}
         onSubmit={handleSubmit}
         validationSchema={ContactSchema}
       >
         {resetForm => (
           <Form className={style.form}>
-            <label className={style.label}>Name</label>
+            <p className={style.title}>Edit contact</p>
+            <label className={style.label} htmlFor={nameFieldId}>
+              Name
+            </label>
             <Field
               className={style.field}
               type="text"
               name="name"
-              // id={nameFieldId}
+              id={nameFieldId}
             />
             <ErrorMessage
               className={style.error}
               name="name"
               component="span"
             />
-            <label className={style.label}>Number</label>
+            <label className={style.label} htmlFor={numberFieldId}>
+              Number
+            </label>
 
             <Field
               className={style.field}
               type="tel"
               name="number"
-              // id={numberFieldId}
+              id={numberFieldId}
               component={TextMaskCustom}
               onClick={handleClick}
             />
@@ -119,7 +118,7 @@ const ContactForm = ({ setIsFormVisible }) => {
               component="span"
             />
             <button className={style.btn} type="submit">
-              Add contact
+              Save
             </button>
             <button
               className={style.btnUp}
@@ -134,4 +133,4 @@ const ContactForm = ({ setIsFormVisible }) => {
     </section>
   );
 };
-export default ContactForm;
+export default EditContactForm;
